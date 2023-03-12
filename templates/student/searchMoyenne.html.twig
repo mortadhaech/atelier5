@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des étudiants</h1>
+
+    <form method="get" action="{{ path('student_search') }}">
+        <div class="form-group">
+            <label for="minMoyenne">Moyenne minimale :</label>
+            <input type="number" step="0.01" min="0" max="20" class="form-control" id="minMoyenne" name="minMoyenne">
+        </div>
+        <div class="form-group">
+            <label for="maxMoyenne">Moyenne maximale :</label>
+            <input type="number" step="0.01" min="0" max="20" class="form-control" id="maxMoyenne" name="maxMoyenne">
+        </div>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>NSC</th>
+                <th>Email</th>
+                <th>Classe</th>
+                <th>Moyenne</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.NSC }}</td>
+                    <td>{{ student.Email }}</td>
+                    <td>{{ student.classroom.name }}</td>
+                    <td>{{ student.moyenne }}</td>
+                    <td>
+                        <a href="{{ path('student_edit', {'id': student.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                        <a href="{{ path('student_delete', {'id': student.id}) }}" class="btn btn-sm btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

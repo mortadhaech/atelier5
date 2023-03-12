@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Étudiants redoublants par classe{% endblock %}
+
+{% block body %}
+    <h1>Étudiants redoublants par classe</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Nombre d'étudiants redoublants</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for classroomId, redoublants in redoublantsByClassroom %}
+                {% set classroom = classroomRepository.find(classroomId) %}
+                <tr>
+                    <td>{{ classroom.getName() }}</td>
+                    <td>{{ redoublants }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

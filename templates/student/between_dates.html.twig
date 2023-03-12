@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des étudiants nés entre le {{ start_date|date('d/m/Y') }} et le {{ end_date|date('d/m/Y') }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ student.getName }}</td>
+                    <td>{{ student.getBirthdate|date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('student_show', {'id': student.id}) }}" class="btn btn-primary">Afficher</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
